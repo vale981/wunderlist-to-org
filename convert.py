@@ -254,11 +254,23 @@ def convert_wunderlist_task(writer, task):
 
         writer.emit()
 
+    if task["files"]:
+        with writer.new_level():
+            writer.emit_node_title("Files")
+            for w_file in task["files"]:
+                convert_wunderlist_file(writer, w_file)
+
+        writer.emit()
+
 
 def convert_wunderlist_comment(writer, comment):
     comment_text = convert_wunderlist_person(comment["author"])
     comment_text += f": {comment['text']}"
     writer.emit_list_item(comment_text)
+
+
+def convert_wunderlist_file(writer, w_file):
+    writer.emit_list_item(f"[[file:{w_file['filePath']}][{w_file['fileName']}]]")
 
 
 if __name__ == "__main__":

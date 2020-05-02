@@ -8,6 +8,7 @@ It currently supports:
  - Metadata
  - Reminders
  - Comments
+ - File Attachments
 
 ** Usage
 Extract the wunderlist export and then just point the script to the ~Tasks.json~ file.
@@ -19,9 +20,6 @@ This will print out the resulting org-mode file to the terminal.
 
 The script is not configurable at the moments, but I can hack
 something in if you open an issue.
-
-
-** TODO  File attachments
 
 ** Internals
 The script parses most things and skips things that it can't. So check
