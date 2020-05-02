@@ -14,9 +14,6 @@ def _format_org_date(date):
 
 
 class OrgWriter:
-    todo_states = ["TODO", "DONE"]
-    timestamp_types = ["SCHEDULED", "DEADLINE"]
-
     def __init__(self, level=0):
         self._level = level
         self._org_string = ""
@@ -78,9 +75,6 @@ class OrgWriter:
         out_title = "".join(["*" for _ in range(self._level + 1)])
 
         if todo_state:
-            if isinstance(todo_state, int):
-                todo_state = self.todo_states[todo_state]
-
             out_title += f" {todo_state.upper()}"
 
         out_title += f" {title}"
@@ -96,9 +90,6 @@ class OrgWriter:
     def emit_timestamp(self, date, timestamp_type=None, active=True, newline=True):
         if not date:
             return self
-
-        if timestamp_type and isinstance(timestamp_type, int):
-            timestamp_type = self.timestamp_types[timestamp_type]
 
         stamp = f"{timestamp_type.upper()}: " if timestamp_type else ""
 
