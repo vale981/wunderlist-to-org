@@ -140,9 +140,13 @@ def convert_wunderlist(filename):
 
 
 def convert_wunderlist_list(writer, todo_list):
+    title, tags = convert_wunderlist_title(todo_list["title"])
+
+    if todo_list["folder"]:
+        tags.append(todo_list["folder"]["title"])
+
     writer.emit_node_title(
-        todo_list["title"],
-        tags=[todo_list["folder"]["title"]] if todo_list["folder"] else None,
+        title, tags=tags,
     )
 
     with writer.new_level():
