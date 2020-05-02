@@ -187,7 +187,9 @@ def convert_wunderlist_task(writer, task):
     title, tags = convert_wunderlist_title(task["title"])
     writer.emit_node(
         title,
-        todo_state="todo" if task["completed"] else "done",
+        todo_state="next"
+        if task["starred"]
+        else ("todo" if task["completed"] else "done"),
         timestamp=parse_wunderlist_date(task["dueDate"]),
         timestamp_type="deadline",
         tags=tags,

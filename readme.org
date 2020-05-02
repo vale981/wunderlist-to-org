@@ -3,12 +3,13 @@
 A little script to convert the wunderlist export format to org mode.
 It currently supports:
 
- - Todo states
+ - Todo states (~TODO~ and ~DONE~, starred becomes ~NEXT~)
  - Comments
  - Metadata
  - Reminders
  - Comments
  - File Attachments
+ - Tags
 
 ** Usage
 Extract the wunderlist export and then just point the script to the ~Tasks.json~ file.
