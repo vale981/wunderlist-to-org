@@ -10,6 +10,7 @@ It currently supports:
  - Comments
  - File Attachments
  - Tags
+ - Folders (become tags)
 
 ** Usage
 Extract the wunderlist export and then just point the script to the ~Tasks.json~ file.
