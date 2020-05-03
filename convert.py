@@ -15,9 +15,7 @@ def _format_org_date(date):
 
 def sanitize_text(text):
     star_re = re.compile(r"^\*+", flags=re.MULTILINE)
-    star_re.sub("+", text)
-
-    return text
+    return star_re.sub(" +", text)
 
 
 class OrgWriter:
