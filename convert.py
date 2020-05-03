@@ -79,7 +79,7 @@ class OrgWriter:
         return self
 
     def emit_node_title(self, title, todo_state=None, tags=None):
-        out_title = "".join(["*" for _ in range(self._level + 1)])
+        out_title = "*" * (self._level + 1)
 
         if todo_state:
             out_title += f" {todo_state.upper()}"
@@ -98,7 +98,11 @@ class OrgWriter:
         if not date:
             return self
 
-        stamp = f"{timestamp_type.upper()}: " if timestamp_type else ""
+        stamp = (
+            ((self._level + 2) * " " + f"{timestamp_type.upper()}: ")
+            if timestamp_type
+            else ""
+        )
 
         formated_date = _format_org_date(date)
         stamp += f"<{formated_date}>" if active else f"[{formated_date}]"
