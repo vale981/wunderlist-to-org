@@ -197,7 +197,6 @@ def convert_wunderlist_person(person):
 def convert_wunderlist_title(title):
     tag_re = re.compile(r"#(\S+?)(?:\s+|$)", re.MULTILINE)
     tags = [tag for tag in tag_re.findall(title)]
-    title = tag_re.sub(r"", title)
 
     return title, tags
 
