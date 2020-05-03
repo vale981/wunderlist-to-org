@@ -14,7 +14,7 @@ def _format_org_date(date):
 
 
 def sanitize_text(text):
-    star_re = re.compile(r"^\*+")
+    star_re = re.compile(r"^\*+", flags=re.MULTILINE)
     star_re.sub("+", text)
 
     return text
@@ -155,13 +155,12 @@ def convert_wunderlist(filename):
 
 
 def convert_wunderlist_list(writer, todo_list):
-    title, tags = convert_wunderlist_title(todo_list["title"])
-
+    tags = []
     if todo_list["folder"]:
         tags.append(todo_list["folder"]["title"])
 
     writer.emit_node_title(
-        title, tags=tags,
+        todo_list["title"], tags=tags,
     )
 
     with writer.new_level():
@@ -196,9 +195,9 @@ def convert_wunderlist_person(person):
 
 
 def convert_wunderlist_title(title):
-    tag_re = re.compile(r"#(.*?(?:\s+|$))", re.MULTILINE)
-    tags = [tag[:-1] for tag in tag_re.findall(title)]
-    title = tag_re.sub(r"\1", title)
+    tag_re = re.compile(r"#(\S+?)(?:\s+|$)", re.MULTILINE)
+    tags = [tag for tag in tag_re.findall(title)]
+    title = tag_re.sub(r"", title)
 
     return title, tags
 
