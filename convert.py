@@ -13,6 +13,13 @@ def _format_org_date(date):
     return date.strftime("%Y-%m-%d %a %H:%M")
 
 
+def sanitize_text(text):
+    star_re = re.compile(r"^\*+")
+    star_re.sub("+", text)
+
+    return text
+
+
 class OrgWriter:
     def __init__(self, level=0):
         self._level = level
@@ -115,6 +122,10 @@ class OrgWriter:
 
         return self
 
+    def emit_content(self, content):
+        self.emit(sanitize_text(content))
+        return self.emit()
+
     def emit_list_item(self, text):
         return self.emit(f" - {text}")
 
@@ -194,7 +205,7 @@ def convert_wunderlist_task(writer, task):
         title,
         todo_state="next"
         if task["starred"]
-        else ("todo" if task["completed"] else "done"),
+        else ("done" if task["completed"] else "todo"),
         timestamp=parse_wunderlist_date(task["dueDate"]),
         timestamp_type="deadline",
         tags=tags,
@@ -241,8 +252,7 @@ def convert_wunderlist_task(writer, task):
             )
 
     for note in task["notes"]:
-        writer.emit(note["content"])
-        writer.emit()  # empty line
+        writer.emit_content(note["content"])
 
     if task["comments"]:
         with writer.new_level():
